@@ -1,5 +1,5 @@
 //
-//  Presenter.swift
+//  DetailedViewController.swift
 //  ProductListApp
 //
 //  Created by Miguel Castellanos on 13/05/24.

@@ -2,7 +2,7 @@
 //  ProductListAppTests.swift
 //  ProductListAppTests
 //
-//  Created by Sandra Salamanca on 13/05/24.
+//  Created by Miguel Castellanos on 13/05/24.
 //
 
 import XCTest
