@@ -26,7 +26,6 @@ class SearchCoordinator: CoordinatorProtocol {
         searchInteractor.presenter = searchPresenter
         
         searchPresenter.interactor = searchInteractor
-        searchPresenter.router = router
         searchPresenter.viewController = searchViewController
         searchPresenter.coordinatorDelegate = self
         
@@ -52,6 +51,5 @@ extension SearchCoordinator: SearchPresenterDelegateProtocol {
 
 extension SearchCoordinator: CoordinatorDelegateProtocol {
     func childCoordinatorDidFinish(coordinator: CoordinatorProtocol) {
-        
     }
 }

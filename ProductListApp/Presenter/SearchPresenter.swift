@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import OSLog
+import os.log
 
 protocol SearchPresenterProtocol: AnyObject {
     func searchProducts(searchText: String)
@@ -15,12 +15,11 @@ protocol SearchPresenterProtocol: AnyObject {
 class SearchPresenter: SearchPresenterProtocol {
     
     var interactor: SearchInteractorProtocol?
-    var router: RouterProtocol?
     weak var viewController: SearchViewController?
     weak var coordinatorDelegate: SearchPresenterDelegateProtocol?
     
     func searchProducts(searchText: String) {
-        os_log("SearchPresenter: submit(): search=%{PUBLC}@", log: OSLog.buisnessLogic, type: .debug, searchText)
+        os_log("SearchPresenter: submit(): search=%{PUBLC}@", log: OSLog.businessLogic, type: .debug, searchText)
         self.coordinatorDelegate?.searchDidFinish(searchText: searchText)
     }
 }
