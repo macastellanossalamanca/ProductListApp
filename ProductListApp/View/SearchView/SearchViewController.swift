@@ -11,6 +11,15 @@ class SearchViewController: BaseViewController {
     
     private let searchBar = UISearchBar()
     var presenter: SearchPresenterProtocol?
+    
+    private let image: UIImageView = {
+        let img = UIImageView()
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        img.contentMode = .scaleAspectFit
+        img.image = UIImage(named: "banner")
+        return img
+    }()
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -22,6 +31,8 @@ class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         setupUI()
+        view.addSubview(image)
+        setupLayout()
     }
     
     func setupUI() {
@@ -36,6 +47,14 @@ class SearchViewController: BaseViewController {
         searchBar.placeholder = "Busca en Mercado Libre"
         searchBar.searchTextField.layer.cornerRadius = 18
         searchBar.searchTextField.layer.masksToBounds = true
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            image.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            image.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
     }
 }
 

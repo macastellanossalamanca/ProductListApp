@@ -46,6 +46,7 @@ class ProductListView: UIView {
     
     private func setupLayout() {
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.backgroundColor = .yellow
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: self.topAnchor),
             contentView.leftAnchor.constraint(equalTo: self.leftAnchor),

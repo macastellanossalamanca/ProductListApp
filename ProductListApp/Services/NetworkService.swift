@@ -32,7 +32,7 @@ class NetworkService: NetworkManager {
                 completion(.failure(.connectionError))
             case let .success(response):
                 do {
-                    os_log("NetworkService: Succesful getSearchResults(): %{PUBLIC}@", log: OSLog.network, type: .debug)
+                    os_log("NetworkService: Succesful getSearchResults():", log: OSLog.network, type: .debug)
                     let results = try JSONDecoder().decode(ProductsList.self, from: response.data)
                     completion(.success(results.results))
                 } catch let error {

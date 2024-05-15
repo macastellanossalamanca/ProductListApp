@@ -36,6 +36,7 @@ class ResultInteractor: ResultInteractorProtocol {
                 group.notify(queue: .main) {
                     os_log("ResultInteractor: getProducts(): Finished loading thumbnails", log: OSLog.network, type: .debug)
                 }
+                self.presenter?.productsDidFetch()
             }
         }
     }

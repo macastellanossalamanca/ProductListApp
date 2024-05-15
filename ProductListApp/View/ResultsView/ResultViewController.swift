@@ -40,6 +40,7 @@ class ResultViewController: BaseViewController {
         } else {
             self.productListView?.showResultsTable(tableView: productsTableView)
         }
+        productsTableView.reloadData()
     }
 
     func didNotFetchProducts() {
@@ -61,7 +62,9 @@ extension ResultViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProductViewCell
         
-        cell.product = presenter?.products[indexPath.row]
+        if let product = presenter?.itemAt(index: indexPath.row) {
+            cell.product = product
+        }
         
         return cell
     }

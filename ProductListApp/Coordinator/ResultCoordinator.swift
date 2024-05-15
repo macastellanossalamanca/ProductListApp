@@ -38,6 +38,7 @@ class ResultsCoordinator: CoordinatorProtocol {
         resultPresenter.coordinatorDelegate = self
         
         resultViewController.presenter = resultPresenter
+        resultPresenter.load()
 
         self.router.push(resultViewController, isAnimated: true, withCoordinator: self)
         os_log("ResultsCoordinator: start()", log: OSLog.navigation, type: .debug)
