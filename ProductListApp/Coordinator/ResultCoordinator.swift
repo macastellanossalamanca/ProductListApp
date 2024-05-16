@@ -15,7 +15,6 @@ protocol ResultsCoordinatorDelegate: AnyObject {
 class ResultsCoordinator: CoordinatorProtocol {
     
     private let router: RouterProtocol
-    weak var delegate: CoordinatorDelegateProtocol?
     var searchWord: String
     var country: String
     

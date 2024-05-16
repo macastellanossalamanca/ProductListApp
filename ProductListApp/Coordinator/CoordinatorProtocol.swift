@@ -12,10 +12,6 @@ protocol CoordinatorProtocol: AnyObject {
     func dismiss()
 }
 
-protocol CoordinatorDelegateProtocol: AnyObject {
-    func childCoordinatorDidFinish(coordinator: CoordinatorProtocol)
-}
-
 protocol SearchPresenterDelegateProtocol: AnyObject {
     func searchDidFinish(searchText: String, country: String)
 }

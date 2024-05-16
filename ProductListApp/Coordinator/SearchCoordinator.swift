@@ -12,7 +12,6 @@ import CoreLocation
 class SearchCoordinator: CoordinatorProtocol {
     
     private let router: RouterProtocol
-    weak var delegate: CoordinatorDelegateProtocol?
 
     init(router: RouterProtocol) {
         self.router = router
@@ -47,12 +46,6 @@ extension SearchCoordinator: SearchPresenterDelegateProtocol {
     func searchDidFinish(searchText: String, country: String) {
         os_log("SearchCoordinator: searchDidFinish(), Routing to Results", log: OSLog.navigation, type: .debug, searchText)
         let resultsCoordinator = ResultsCoordinator(router: self.router, searchWord: searchText, country: country)
-        resultsCoordinator.delegate = self
         resultsCoordinator.start()
-    }
-}
-
-extension SearchCoordinator: CoordinatorDelegateProtocol {
-    func childCoordinatorDidFinish(coordinator: CoordinatorProtocol) {
     }
 }

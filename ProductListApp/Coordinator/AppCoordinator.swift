@@ -22,7 +22,6 @@ class AppCoordinator: CoordinatorProtocol {
     func start() {
         os_log("AppCoordinator: start()", log: OSLog.navigation, type: .debug)
         let searchCoordinator = SearchCoordinator(router: self.router)
-        searchCoordinator.delegate = self
         searchCoordinator.start()
     }
 
@@ -31,9 +30,3 @@ class AppCoordinator: CoordinatorProtocol {
         fatalError("Initial coordinator can't be dismised")
     }
 }
-
-extension AppCoordinator: CoordinatorDelegateProtocol {
-    func childCoordinatorDidFinish(coordinator: CoordinatorProtocol) {
-    }
-}
-

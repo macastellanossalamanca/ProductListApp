@@ -8,14 +8,14 @@
 @testable import ProductListApp
 
 class MockCoordinator: CoordinatorProtocol {
-    private(set) var coorindatorStarted = false
-    private(set) var coorindatorDismissed = false
+    private(set) var coordinatorStarted = false
+    private(set) var coordinatorDismissed = false
     
     func start() {
-        coorindatorStarted = true
+        coordinatorStarted = true
     }
     
     func dismiss() {
-        coorindatorDismissed = true
+        coordinatorDismissed = true
     }
 }

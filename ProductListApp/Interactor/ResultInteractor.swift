@@ -15,7 +15,7 @@ protocol ResultInteractorProtocol: AnyObject {
 
 class ResultInteractor: ResultInteractorProtocol {
     weak var presenter: ResultPresenterProtocol?
-    var networkService: NetworkService?
+    var networkService: NetworkManager?
     
     func getProducts(searchText: String) {
         networkService?.getSearchResults(q: searchText) { response in
