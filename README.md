@@ -1,12 +1,13 @@
 # Miguel Castellanos
 
-# How it works
+## Meli iOS Challenge
+
 - Just below you can find a video of the project running.
 
 https://github.com/macastellanossalamanca/ProductListApp/assets/44925834/433bd062-75ba-40bf-8710-2ead11dfa9a5
 
-## Meli iOS Challenge
 
+## How it works
 - This app allows users to search for an specific product, and list all items related, it asks for permission to use device location and get products in the specific area.
 - The architechture used in this project is VIPER and Delegate Pattern, Coordinator Pattern, Dependency Injection.
 - This project also abstracts services, therefore we can find a managers or services.
