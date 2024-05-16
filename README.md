@@ -7,7 +7,7 @@ https://github.com/macastellanossalamanca/ProductListApp/assets/44925834/433bd06
 
 ## Meli iOS Challenge
 
-- This app allows users to search for an specific product, and list all items related.
+- This app allows users to search for an specific product, and list all items related, it asks for permission to use device location and get products in the specific area.
 - The architechture used in this project is VIPER and Delegate Pattern, Coordinator Pattern, Dependency Injection.
 - This project also abstracts services, therefore we can find a managers or services.
 - Its interface is implemented using UIKit with programatic views.
