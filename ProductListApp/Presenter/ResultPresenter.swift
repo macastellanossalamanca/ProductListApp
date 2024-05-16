@@ -15,6 +15,7 @@ protocol ResultPresenterProtocol: AnyObject {
     func getProducts(searchText: String)
     func productsDidFail(error: Error)
     func productsDidFetch()
+    func load()
 }
 
 class ResultPresenter: ResultPresenterProtocol {

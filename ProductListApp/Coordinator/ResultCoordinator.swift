@@ -17,10 +17,12 @@ class ResultsCoordinator: CoordinatorProtocol {
     private let router: RouterProtocol
     weak var delegate: CoordinatorDelegateProtocol?
     var searchWord: String
+    var country: String
     
-    init(router: RouterProtocol, searchWord: String) {
+    init(router: RouterProtocol, searchWord: String, country: String) {
         self.router = router
         self.searchWord = searchWord
+        self.country = country
     }
     
     func start() {
@@ -30,6 +32,7 @@ class ResultsCoordinator: CoordinatorProtocol {
         let resultInteractor = ResultInteractor()
         let networkService = NetworkService()
         
+        networkService.countryCode = CountryCode.countryCodes[country] ?? ""
         resultInteractor.presenter = resultPresenter
         resultInteractor.networkService = networkService
         
@@ -38,7 +41,6 @@ class ResultsCoordinator: CoordinatorProtocol {
         resultPresenter.coordinatorDelegate = self
         
         resultViewController.presenter = resultPresenter
-        resultPresenter.load()
 
         self.router.push(resultViewController, isAnimated: true, withCoordinator: self)
         os_log("ResultsCoordinator: start()", log: OSLog.navigation, type: .debug)

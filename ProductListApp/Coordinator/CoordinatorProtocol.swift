@@ -17,7 +17,7 @@ protocol CoordinatorDelegateProtocol: AnyObject {
 }
 
 protocol SearchPresenterDelegateProtocol: AnyObject {
-    func searchDidFinish(searchText: String)
+    func searchDidFinish(searchText: String, country: String)
 }
 
 protocol ResultPresenterDelegateProtocol: AnyObject {

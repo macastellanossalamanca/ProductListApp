@@ -7,6 +7,7 @@
 
 import UIKit
 import os.log
+import CoreLocation
 
 class SearchCoordinator: CoordinatorProtocol {
     
@@ -22,6 +23,7 @@ class SearchCoordinator: CoordinatorProtocol {
         let searchViewController = SearchViewController()
         let searchPresenter = SearchPresenter()
         let searchInteractor = SearchInteractor()
+        let locationManager = CLLocationManager()
         
         searchInteractor.presenter = searchPresenter
         
@@ -30,6 +32,7 @@ class SearchCoordinator: CoordinatorProtocol {
         searchPresenter.coordinatorDelegate = self
         
         searchViewController.presenter = searchPresenter
+        searchViewController.locationManager = locationManager
         
         router.push(searchViewController, isAnimated: false, withCoordinator: self)
         os_log("SearchCoordinator: start()", log: OSLog.navigation, type: .debug)
@@ -41,9 +44,9 @@ class SearchCoordinator: CoordinatorProtocol {
 }
 
 extension SearchCoordinator: SearchPresenterDelegateProtocol {
-    func searchDidFinish(searchText: String) {
+    func searchDidFinish(searchText: String, country: String) {
         os_log("SearchCoordinator: searchDidFinish(), Routing to Results", log: OSLog.navigation, type: .debug, searchText)
-        let resultsCoordinator = ResultsCoordinator(router: self.router, searchWord: searchText)
+        let resultsCoordinator = ResultsCoordinator(router: self.router, searchWord: searchText, country: country)
         resultsCoordinator.delegate = self
         resultsCoordinator.start()
     }

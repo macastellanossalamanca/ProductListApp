@@ -36,22 +36,3 @@ class Router: NSObject, RouterProtocol {
         os_log("Router: pop(): manual coordinator dismiss", log: OSLog.default, type: .debug)
     }
 }
-
-extension Router: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
-            return
-        }
-
-        // if the last vc is still in the navigation controller stack it means i'm adding a new vc
-        if navigationController.viewControllers.contains(fromVC) {
-            return
-        }
-
-        if let lastCoordinator = coordinators.last {
-            lastCoordinator.dismiss()
-            coordinators.removeLast()
-        }
-        os_log("Router: navigationController(): automatic coordinator dismiss", log: OSLog.navigation, type: .debug)
-    }
-}

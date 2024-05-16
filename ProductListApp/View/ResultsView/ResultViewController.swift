@@ -32,6 +32,7 @@ class ResultViewController: BaseViewController {
     override func loadView() {
         self.productListView = ProductListView()
         self.view = self.productListView
+        presenter?.load()
     }
     
     func didFetchProducts() {

@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import CoreLocation
+import os.log
 
 class SearchViewController: BaseViewController {
     
     private let searchBar = UISearchBar()
     var presenter: SearchPresenterProtocol?
+    var locationManager: CLLocationManager?
     
     private let image: UIImageView = {
         let img = UIImageView()
@@ -33,6 +36,9 @@ class SearchViewController: BaseViewController {
         setupUI()
         view.addSubview(image)
         setupLayout()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestLocation()
     }
     
     func setupUI() {
@@ -74,5 +80,20 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.showsCancelButton = false
         searchBar.text = nil
         searchBar.resignFirstResponder()
+    }
+}
+
+extension SearchViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        location.fetchCityAndCountry { country, error in
+            guard let country = country, error == nil else { return }
+            self.presenter?.updateLocation(country: country)
+            os_log("LocationService: Setting Up country %@", log: OSLog.network, type: .debug, country)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        os_log("LocationService: Failed getting location", log: OSLog.network, type: .error, error as CVarArg)
     }
 }

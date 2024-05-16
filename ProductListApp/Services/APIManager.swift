@@ -17,7 +17,7 @@ enum APIManager {
     private static let searchPath = "sites/MCO/search"
     private static let itemPath = "items/"
 
-    case search(q: String)
+    case search(q: String, country: String)
     case item(id: String)
 }
 
@@ -29,7 +29,8 @@ extension APIManager: TargetType {
     
     var path: String {
         switch self {
-        case .search: return APIManager.searchPath
+        case .search(_, let country):
+            return "sites/M\(country)/search"
         case .item(id: let id): return APIManager.itemPath + id
         }
     }
@@ -49,7 +50,7 @@ extension APIManager: TargetType {
     
     var task: Task {
         switch self {
-        case .search(let q):
+        case .search(let q, _):
             return .requestParameters(parameters: ["q": q], encoding: URLEncoding.queryString)
         case .item: return .requestPlain
         }

@@ -11,6 +11,7 @@ import Alamofire
 import os.log
 
 protocol NetworkManager: AnyObject {
+    var countryCode: String { get set }
     func getSearchResults(q: String, completion: @escaping (Result<[Product], APIError>) -> Void)
     func getImage(url: String, completion: @escaping (Result<Data, APIError>) -> Void)
     func getItem(withId id: String, completion: @escaping (Result<ProductDetail, APIError>) -> Void)
@@ -19,13 +20,17 @@ protocol NetworkManager: AnyObject {
 class NetworkService: NetworkManager {
     // Instantiates Moya Network Provider, which works with AlamoFire underneath
     private var provider = MoyaProvider<APIManager>()
+    var countryCode: String
     
     init(provider: MoyaProvider<APIManager> = MoyaProvider<APIManager>()) {
         self.provider = provider
+        countryCode = ""
     }
     
     func getSearchResults(q: String, completion: @escaping (Result<[Product], APIError>) -> Void) {
-        provider.request(.search(q: q)) { result in
+        if countryCode.isEmpty {countryCode = "CO"}
+        os_log("NetworkService: Fetching with country code %@", log: OSLog.network, type: .debug, countryCode)
+        provider.request(.search(q: q, country: countryCode)) { result in
             switch result {
             case let .failure(error):
                 os_log("NetworkService: getSearchResults(): %{PUBLIC}@", log: OSLog.network, type: .error, error as CVarArg)
@@ -46,11 +51,10 @@ class NetworkService: NetworkManager {
     func getImage(url: String, completion: @escaping (Result<Data, APIError>) -> Void) {
         AF.request(url).responseImage { response in
             if let data = response.data {
-                os_log("NetworkService: Succesful getImage(): %{PUBLIC}@", log: OSLog.network, type: .debug)
                 completion(.success(data))
             } else {
                 if let error = response.error {
-                    os_log("NetworkService: getImage(): %{PUBLIC}@", log: OSLog.network, type: .error, error as CVarArg)
+                    os_log("NetworkService: getImage(): ", log: OSLog.network, type: .error, error as CVarArg)
                 }
                 completion(.failure(.connectionError))
             }
@@ -65,7 +69,6 @@ class NetworkService: NetworkManager {
                 completion(.failure(.connectionError))
             case let .success(response):
                 do {
-                    os_log("NetworkService: Successful getItem(): %{PUBLIC}@", log: OSLog.network, type: .debug)
                     let item = try JSONDecoder().decode(ProductDetail.self, from: response.data)
                     completion(.success(item))
                 } catch {
